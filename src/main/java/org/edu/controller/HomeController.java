@@ -26,7 +26,22 @@ public class HomeController {
 	 * 그래서, 저장시 콘솔에 보시면, Reloading Context with... is completed 재실행 되었다고 나옵니다.
 	 * 그래서, .java 클래스는 수정 후 약간 기다린 후 Reloading... 메시지 후 결과 확인이 가능합니다.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value="/weare",  method=RequestMethod.GET)
+	public String weare() {
+		//외부에서 /weare 경로로 접근했을떄, sample/weare.jsp와 매핑시키라는 의미.
+		return "sample/weare" ;
+	}
+	@RequestMapping(value="/", method = RequestMethod.GET)
+	public String index() { // 메소드(함수)구성: 리턴(출력)형태지정 메소드명(매개변수) {구현내용} String index()
+		//상단 리퀘스트매핑에서 지정한 경로로 접근을 하게되면, 아래에있는 index()메소드를 실행해라.
+		/*메소드명  맨 앞에있는 public는 접근권한에 대한 키워드인데, public(공공- 다른 클래스에서 접근가능),
+		private(내부- 현재 HomeController 클래스에서만 접근가능)*/
+		//public Srting index() { } 메소드 기본형태
+		//리턴반환값으로 사용한 String 클래스는 문자열을 반환하고, 여기서는index.jsp와 매칭되는 문자열을 반환.
+		//접두사 (prefix), 접미사 (suffix). index (접두사 또는 파일명), jsp(접미사 또는 확장자)	
+		return "sample/index"; // 접두사만 반환값으로 넣는다.
+	}
+	/*@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("개발자들이 변수값 확인용으로 사용하는 것이 로그 입니다. 현재 여러분 컴퓨터언어는 {} 입니다.", locale);
 		logger.info("환영합니다. 현재 여러분의 컴퓨터 언어는 " + locale + " 입니다..");
@@ -41,8 +56,9 @@ public class HomeController {
 		//위 변수가 실행되어서 출력된 결과값이 String클래스형 변수 formattedDate변수에 담기게 됩니다.
 		model.addAttribute("TomcatserverTime", formattedDate );//serverTime 변수값으로 jsp파일로 이동.
 		//위 model이라는 클래스형 변수를 이용해서, serverTime변수값을  아래  home(생략 .jsp)로 전송해 줌.
+		System.out.println("현재 서버의 시간은" + formattedDate + "입니다.");
 		return "home";//결과적으로 return 출력값이 home(생락 .jsp)에 연동됩니다.
 		//스프링에서 뷰단으로 데이터 이동(전송)에 대해서 살펴 보았습니다.
-	}
+	}*/
 	
 }

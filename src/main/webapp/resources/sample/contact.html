@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1,
+ minimum-scale=1, maximum-scale=1">
+<title>반응형 홈페이지</title>
+<link rel="stylesheet" href="/resources/sample/css/reset.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/sample/css/mobile.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/sample/css/tablet.css"
+	type="text/css">
+<link rel="stylesheet" href="/resources/sample/css/pc.css"
+	type="text/css">		
+
+<!-- 외부 자바스크립트 불러오는 태그 (아래) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="/resources/sample/js/user.js"></script>
+
+<style>
+/* pc용 영역 시작 */
+@media all and (min-width:1132px) {
+
+
+/* pc용 영역 끝 */
+}
+</style>
+
+</head>
+
+<body>
+	<!-- 문서내용이 들어가는 영역 -->
+	<div id="wrap">
+		<header class="header">
+			<!-- 상단 로고와 햄버거 메뉴영역 시작 -->
+			<h1 class="logo">
+				<a href="index.html">LOGO</a>
+			</h1>
+			<!-- span 태그는 자리를 차지하지않는 영역 한 뼘 -->
+			<!--   : (콜론_속성:값)   ; (세미콜론_문장의 끝) -->
+			<div class="menu-toggle-btn">
+				<span></span> <span></span> <span></span>
+			</div>
+
+			<nav class="gnb">
+				<ul>
+					<li><a href="index.html">HOME</a></li>
+					<li><a href="weare.html">WE ARE</a></li>
+					<li><a href="work.html">WORK</a></li>
+					<li><a href="blog.html">BLOG</a></li>
+					<li><a href="contact.html">CONTACT US</a></li>
+				</ul>
+			</nav>
+			<!-- 상단 로고와 햄버거 메뉴영역 끝 -->
+		</header>
+
+		<section class="contact-section">
+			<h1>CONTACT</h1>
+			<div class="container">
+				<form name="message_form" action="contact.html" method="get">
+					<fieldset>
+						<legend>현재폼의 타이틀 영역입니다.</legend>
+						<div class="input-class">
+						<label for="name">이름</label>
+						<input name="name" id="name" type="text" placeholder="이름을 입력해주세요">
+					
+						<label for="phone">연락처</label> 
+						<input name="phone" id="phone" type="text" placeholder="연락처를 입력해주세요">
+					
+						<label for="email">이메일</label>
+						<input name="email" id="email" type="email" placeholder="이메일을 입력해주세요">
+						</div>
+						<div class ="textarea-class">
+						<label for="message">메세지</label>
+						<textarea name="message" id="message" placeholder="내용을 입력해주세요"></textarea>
+						</div>
+					</fieldset>
+					<div class="submit-btn">
+						<button type="submit">메세지보내기</button>
+					</div>
+				</form>
+				<!-- form 태그의 목적은 input,textarea,checkbox,radio,select 데이터를
+				submit (전송)하는것이 목적 -->
+				<!-- method = get (비보안용) post (보안용) -->
+				<!-- placeholder 입력칸에 입력힌트를 노출 -->
+				</div>
+		</section>
+
+		<footer class="footer float-clear">
+			<!-- 하단 로고 영역 시작 -->
+			<p>LOGO</p>
+			<!-- 하단 로고 영역 끝 -->
+		</footer>
+	</div>
+</body>
+
+</html>

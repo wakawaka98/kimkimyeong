@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+@media all and (min-width:768px) {
+	
+	/* 헤더 영역 시작 */
+	.menu-toggle-btn {
+		display: none;
+	}
+	.header .gnb {
+		display: block;
+		position: static;
+		background: none;
+		width: auto;
+		float: right; /* 가로위치를 오른쪽으로 변경 */
+		margin-top: 10px;
+	}
+	.header .gnb li {
+		float: left;
+		border: none;
+		width: 95px;
+	}
+	.header .gnb li:last-child {
+		border-bottom: none;
+	}
+	.header .gnb li a:hover {
+		text-decoration: none;
+	}
+
+	/* 헤더 영역 끝 */
+
+	/* 슬라이드 영역 시작 */
+	.carousel-item, .carousel-item img {
+		height: 500px;
+	}
+
+/* 슬라이드 영역 끝 */
+
+/* we are 영역 시작 */
+.float-clear {clear:both;} /* clear 속성은 float 작동을 없내는 역할 */
+.weare-body li {
+	float: left; /* 세로정렬을 가로정렬로 변경. 부트스트랩의 그리드시스템 */
+	width: 23.046875%;/* (177 (포토샵 레이아웃 가로 값) / 768)*100 = 몇% */
+	margin-left: 2.604166%; /* (20포토샵 레이아웃의 여백값/768)*100 = 몇% */ 
+	overflow: hidden; /* 반응형 list 박스에서 가로 크기를 벗어나는 이미지 내용은 숨김 */
+}
+.weare-body li img {width: 100%; height: auto;}
+.weare body {
+	margin: 10px 3%; /* 상하 , 좌우 여백 */
+}
+.weare-body li:first-child {
+	margin-left: 0px;
+}
+/* we are 영역 끝 */
+
+/* work 영역 시작 */
+	.work-section li {
+		float: left;
+		width: 50%;
+	}
+/* work 영역 끝 */	
+
+	/* blog 영역 시작 */
+	.blog-section li {
+		float: left;
+		width: 31.59722222222%; /*3개중 1개의 가로크기 (242px/768*)*100 = % */
+		margin-left: 2.60416666666%; /*1개 여백구하기 (20px/768)*100 = % */
+		height: 300px;
+		border: 1.4px solid gray;
+		margin-top: 20px; /* 내가 추가함 */
+	}
+	.blog-section li .preview {
+		height: 200px;
+		overflow: hidden;
+		/*max-height: 200px;
+		min-height: 200px;*/
+	}
+	.blog-section li .info2 {
+		padding: 10px;
+	}
+	.blog-section li:first-child {
+		margin-left: 0px;
+	}
+	.blog-section li:nth-child(3n+1){
+		margin-left: 0px;
+	}
+	.blog-section hr {display: none;}
+	/* blog 영역 끝 */
+	
+	/* contact 영역 시작 */
+.input-class, .textarea-class {
+	float: left;
+	width: 49%; /* 2개로 나누는 가로크기를 50%로 지정 */
+}
+.input-class {
+	margin-right: 2%;
+}
+.contact-section form textarea {
+	min-height: 150px;
+}
+/* contact 영역 끝 */
+}
