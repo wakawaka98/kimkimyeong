@@ -6,7 +6,9 @@
 <section class="contact-section">
 			<h1>CONTACT</h1>
 			<div class="container">
-				<form name="message_form" action="contact.html" method="get">
+				<form name="message_form" action="/contact" method="post">
+				<!-- 스프링에서는 action으로 폼데이터를 전송할 위치를 지정할때, contact.html 직접X
+				contact처럼 컨트롤러를 통해 O -->
 					<fieldset>
 						<legend>현재폼의 타이틀 영역입니다.</legend>
 						<div class="input-class">

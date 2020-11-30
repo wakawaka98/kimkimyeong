@@ -19,6 +19,10 @@ org.edu.controller 패키지명 : 자바클래스가 있는 폴더경로를 말�
 패키지를 사용하는 이유 : 자바클래스를 기능별로 묶어놓기 위해 명시적으로 만든 묶음. -->	  
 
 <%@ include file="./include/header.jsp" %>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>	
 
 		<section>
 			<!-- 본문 슬라이드 영역 시작  -->
@@ -32,15 +36,15 @@ org.edu.controller 패키지명 : 자바클래스가 있는 폴더경로를 말�
 				</ol>
 				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<img src="/resources/sample/img/main.jpg" class="d-block w-100"
+						<img src="/resources/sample/img/mainimg1.jpg" class="d-block w-100"
 							alt="...">
 					</div>
 					<div class="carousel-item">
-						<img src="/resources/sample/img/workimg.jpg" class="d-block w-100"
+						<img src="/resources/sample/img/mainimg2.jpg" class="d-block w-100"
 							alt="...">
 					</div>
 					<div class="carousel-item">
-						<img src="/resources/sample/img/image1.jpg" class="d-block w-100"
+						<img src="/resources/sample/img/mainimg3.jpg" class="d-block w-100"
 							alt="...">
 					</div>
 				</div>

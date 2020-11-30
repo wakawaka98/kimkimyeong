@@ -13,10 +13,8 @@
 <!-- 외부 자바스크립트 불러오는 태그 (아래) -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="/resources/sample/js/user.js"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
 
 <link rel="stylesheet" href="/resources/sample/css/reset.css"
 	type="text/css">
@@ -42,7 +40,7 @@
 	/* 자바스크립트 시작 */
 	$(document).ready(function() {
 		$(".carousel").carousel({
-			interval : 1000,
+			interval : 3000,
 			pause : true
 		});
 	});
@@ -56,14 +54,15 @@
 	<div id="wrap">
 		<header class="header">
 			<!-- 상단 로고와 햄버거 메뉴영역 시작 -->
-			<h1 class="logo">
-				<a href="/">LOGO</a>
-			</h1>
+				<h1 class="logo">
+					<a href="/">Logo</a>
+				</h1>
 			<!-- span 태그는 자리를 차지하지않는 영역 한 뼘 -->
 			<!--   : (콜론_속성:값)   ; (세미콜론_문장의 끝) -->
 			<div class="menu-toggle-btn">
 				<span></span> <span></span> <span></span>
 			</div>
+			
 
 			<nav class="gnb">
 				<ul>
@@ -72,6 +71,7 @@
 					<li><a href="/work">WORK</a></li>
 					<li><a href="/blog">BLOG</a></li>
 					<li><a href="/contact">CONTACT US</a></li>
+					<li><a href="/javascript:alert('관리자단 준비중');">AdminLTE</a></li>
 				</ul>
 			</nav>
 			<!-- 상단 로고와 햄버거 메뉴영역 끝 -->
