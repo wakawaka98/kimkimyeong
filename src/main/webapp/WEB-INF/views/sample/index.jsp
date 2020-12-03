@@ -37,15 +37,15 @@ org.edu.controller 패키지명 : 자바클래스가 있는 폴더경로를 말�
 				<div class="carousel-inner">
 					<div class="carousel-item active">
 						<img src="/resources/sample/img/mainimg1.jpg" class="d-block w-100"
-							alt="...">
+							alt="..."> <!-- 슬라이드 이미지1  --> 
 					</div>
 					<div class="carousel-item">
 						<img src="/resources/sample/img/mainimg2.jpg" class="d-block w-100"
-							alt="...">
+							alt="..."> <!-- 슬라이드 이미지2  -->
 					</div>
 					<div class="carousel-item">
 						<img src="/resources/sample/img/mainimg3.jpg" class="d-block w-100"
-							alt="...">
+							alt="..."> <!-- 슬라이드 이미지3  -->
 					</div>
 				</div>
 				<a class="carousel-control-prev" href="#carouselExampleIndicators"

@@ -74,7 +74,7 @@ ul {
 }
 /*가상선택자 : 사용*/
 .header .gnb li:last-child {
-	border-bottom: 1px solid #303f9f;
+	/*border-bottom: 1px solid #303f9f;*/
 }
 
 .header .gnb li a {
@@ -146,9 +146,9 @@ ul {
 
 .weare-body li h2 {
 	margin: 20px 0px;
-	font-size: 30px;
+	font-size: 26px;
 	font-weight: normal;
-	color: #3f51b5;
+	color: #008B8B;
 }
 
 .weare-body li p {
@@ -309,7 +309,7 @@ ul {
 .contact-section form button {
 	padding: 15px;
 	font-size: 12px;
-	background: #2E4053;
+	background: #5F9EA0;
 	color: #FDFEFE;
 	border: 0px;
 }
