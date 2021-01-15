@@ -2,14 +2,26 @@ package org.edu.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
+import org.edu.service.IF_BoardService;
+import org.edu.util.CommonController;
+import org.edu.util.SecurityCode;
+import org.edu.vo.AttachVO;
+import org.edu.vo.BoardVO;
+import org.edu.vo.PageVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 앱을 위한 홈페이지 요청(request)을 처리한다(아래).
@@ -18,46 +30,107 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	//private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Inject
+	private IF_BoardService boardService;
 	
-	/**
-	 * 루트 / 라는 이름으로 요청 받으면, home.jsp파일에 화면출력(렌더링)이 됩니다.(아래)
-	 * HomeController.java 를 저장하면, 이클립스에서는 HomeController.class 실행가능한 파일을 생성
-	 * 그래서, 저장시 콘솔에 보시면, Reloading Context with... is completed 재실행 되었다고 나옵니다.
-	 * 그래서, .java 클래스는 수정 후 약간 기다린 후 Reloading... 메시지 후 결과 확인이 가능합니다.
-	 */
-	@RequestMapping(value="/contact", method=RequestMethod.POST)//POST방식은 데이터를 전송함
-	public String contact_send() {
-		//데이터 전송후에 페이지이동이 필요함. 새로고침을 방지하기 위해서. 게시판테러 방지용
-		return "redirect:/blog"; //URL경로를 사용.
+	@Inject
+	private SecurityCode securityCode;
+	
+	@Inject
+	private CommonController commonController;
+	
+	//전역 홈페이지에서 스프링 진입전 발생하는 에러 페이지 처리
+	@RequestMapping(value="/home/error/404",method=RequestMethod.GET)
+	public String error404() throws Exception {
+		return "home/error/404";
 	}
-	@RequestMapping(value="contact", method=RequestMethod.GET)//GET방식은 form페이지를 보여줌
-	public String contact() {
-		return "sample/contact" ;
+	
+	//사용자 홈페이지 게시판 상세보기 매핑
+	@RequestMapping(value="/home/board/board_view",method=RequestMethod.GET)
+	public String board_view(@RequestParam("bno") Integer bno,@ModelAttribute("pageVO") PageVO pageVO, Model model) throws Exception {
+		BoardVO boardVO = boardService.readBoard(bno);
+		//내용에 대한 시큐어코딩(아래)
+		String xssData = securityCode.unscript(boardVO.getContent());
+		boardVO.setContent(xssData);//악성코드 제거한 결과를 다시 셋 저장
+		//=======================================================
+		//첨부파일 데이터 jsp 뷰단으로 보내기(아래)
+		List<AttachVO> files = boardService.readAttach(bno);
+		//[
+		//{'save_file_name':저장된파일명0, 'real_file_name':DB에저장된파일명0},
+		//{'save_file_name':저장된파일명1, 'real_file_name':DB에저장된파일명1}
+		//]
+		String[] save_file_names = new String[files.size()];
+		String[] real_file_names = new String[files.size()];
+		int cnt = 0;
+		for(AttachVO filename:files) {//위에 files데이터에서 값을 뽑아오는 로직
+			save_file_names[cnt] = filename.getSave_file_name();
+			real_file_names[cnt] = filename.getReal_file_name();
+			cnt = cnt + 1;
+		}
+		boardVO.setSave_file_names(save_file_names);
+		boardVO.setReal_file_names(real_file_names);
+		//=============================================
+		model.addAttribute("boardVO", boardVO);
+		//업로드 한 내용이 이미지인지 일반문서파일인지 구분하는 역할을 jsp로 보냅니다.(아래)
+		model.addAttribute("checkImgArray", commonController.getCheckImgArray());
+		return "home/board/board_view";
 	}
-	@RequestMapping(value="/blog", method=RequestMethod.GET)
-	public String blog() {
-		return "sample/blog" ;
+	
+	//사용자 홈페이지 게시판 쓰기 매핑(POST) 오버로드(매개변수의 개수또는 타입이 틀린)메서드이용
+	//jsp에서 board_write메서드를 호출합니다 -> 호출할때 폼의 필드값을 컨트롤러로 보냅니다.
+	//컨트롤러에서 받을때 사용하는 매개변수 BoardVO boardVO입니다.
+	//위에서 받은 boardVO 를 DAO에서 받아서 DB테이블에 쿼리명령으로 입력합니다.
+	//POST는 jsp폼에서 서밋할때 전송하는 방식(숨겨서 전송하는 방식)-GET으로하면 브라우저 URL에 노출되어서 전송.
+	@RequestMapping(value="/home/board/board_write",method=RequestMethod.POST)
+	public String board_write(BoardVO boardVO) throws Exception {
+		//위에서 받은 boardVO를 서비스로 보내기.
+		return "redirect:/home/board/board_view";
 	}
-	@RequestMapping(value="/work", method=RequestMethod.GET)
-	public String work() {
-		return "sample/work" ;
+	//사용자 홈페이지 게시판 쓰기 매핑(GET) jsp폼에 접근하는 url방식(get) 폼만보여주는 역할
+	@RequestMapping(value="/home/board/board_write",method=RequestMethod.GET)
+	public String board_write() throws Exception {
+		
+		return "home/board/board_write";
 	}
-	@RequestMapping(value="/weare",  method=RequestMethod.GET)
-	public String weare() {
-		//외부에서 /weare 경로로 접근했을떄, sample/weare.jsp와 매핑시키라는 의미.
-		return "sample/weare" ;
+	
+	//사용자 홈페이지 게시판 리스트 매핑
+	@RequestMapping(value="/home/board/board_list",method=RequestMethod.GET)
+	public String board_list(@ModelAttribute("pageVO") PageVO pageVO, Model model) throws Exception {
+		//페이지 처리 추가(아래)
+		if(pageVO.getPage() == null) {
+			pageVO.setPage(1);
+		}
+		pageVO.setPerPageNum(5);//페이지 하단 페이징번호 개수
+		pageVO.setQueryPerPageNum(10);//1페이지당 보여줄 게시물 개수
+		int totalCount = boardService.countBoard(pageVO);//페이징의 게시물 전체개수 구하기 
+		pageVO.setTotalCount(totalCount);
+		List<BoardVO> board_list = boardService.selectBoard(pageVO);
+		model.addAttribute("board_list", board_list);
+		return "home/board/board_list";
 	}
-	@RequestMapping(value="/", method = RequestMethod.GET)
-	public String index() { // 메소드(함수)구성: 리턴(출력)형태지정 메소드명(매개변수) {구현내용} String index()
-		//상단 리퀘스트매핑에서 지정한 경로로 접근을 하게되면, 아래에있는 index()메소드를 실행해라.
-		/*메소드명  맨 앞에있는 public는 접근권한에 대한 키워드인데, public(공공- 다른 클래스에서 접근가능),
-		private(내부- 현재 HomeController 클래스에서만 접근가능)*/
-		//public Srting index() { } 메소드 기본형태
-		//리턴반환값으로 사용한 String 클래스는 문자열을 반환하고, 여기서는index.jsp와 매칭되는 문자열을 반환.
-		//접두사 (prefix), 접미사 (suffix). index (접두사 또는 파일명), jsp(접미사 또는 확장자)	
-		return "sample/index"; // 접두사만 반환값으로 넣는다.
+	
+	//사용자 홈페이지 회원 마이페이지 접근 매핑
+	@RequestMapping(value="/member/mypage",method=RequestMethod.GET)
+	public String mypage() throws Exception{
+		
+		return "home/member/mypage";
 	}
+	
+	//사용자 홈페이지 회원가입 접근 매핑
+	@RequestMapping(value="/join",method=RequestMethod.GET)
+	public String join() throws Exception{
+		
+		return "home/join";
+	}
+	
+	//사용자 홈페이지 루트(최상위) 접근 매핑
+	@RequestMapping(value="/",method=RequestMethod.GET)
+	public String home() throws Exception{
+		
+		return "home/home";
+	}
+	
 	/*@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("개발자들이 변수값 확인용으로 사용하는 것이 로그 입니다. 현재 여러분 컴퓨터언어는 {} 입니다.", locale);
@@ -73,7 +146,7 @@ public class HomeController {
 		//위 변수가 실행되어서 출력된 결과값이 String클래스형 변수 formattedDate변수에 담기게 됩니다.
 		model.addAttribute("TomcatserverTime", formattedDate );//serverTime 변수값으로 jsp파일로 이동.
 		//위 model이라는 클래스형 변수를 이용해서, serverTime변수값을  아래  home(생략 .jsp)로 전송해 줌.
-		System.out.println("현재 서버의 시간은" + formattedDate + "입니다.");
+		System.out.println("현재 서버의 시간은 " + formattedDate + " 입니다.");
 		return "home";//결과적으로 return 출력값이 home(생락 .jsp)에 연동됩니다.
 		//스프링에서 뷰단으로 데이터 이동(전송)에 대해서 살펴 보았습니다.
 	}*/

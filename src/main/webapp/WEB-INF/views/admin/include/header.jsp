@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-    <!-- 관리자단 헤더 시작 header.jsp -->
+<!-- 관리자단 헤더 시작 header.jsp -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<script>
+if('${msg}' != '') {//자바의 EL표기법 = 달라{변수명}
+	alert("${msg} 가(이) 성공하였습니다.");
+}
+</script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>관리자 | Dashboard</title>
@@ -33,7 +38,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
-  <!-- 관리자화면 최상단 Navbar -->
+  <!-- 관리자화면 최상단 아이콘2개 Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -44,7 +49,6 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-       
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
@@ -54,7 +58,7 @@
   </nav>
   <!-- /.navbar -->
 
-  <!-- 관리자화면 왼쪽 메뉴부분 Main Sidebar Container -->
+  <!-- 관리자화면 왼쪽메뉴부분 Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- 관리자 상단로고 Brand Logo -->
     <a href="/admin" class="brand-link">
@@ -67,7 +71,7 @@
       <!-- 로그인한 사용자표시 Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="/resources/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="/resources/dist/img/default-150x150.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">관리자</a>
@@ -86,10 +90,10 @@
         </div>
       </div>
 
-      <!-- 대쉬보드메뉴 & 사용자 홈 -->
+      <!-- 사용자 홈과 대시보드 메뉴 Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-           <li class="nav-item">
+          <li class="nav-item">
             <a href="/" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
@@ -111,6 +115,7 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="/admin/member/member_list" class="nav-link">
+                <!-- 위 메뉴선택시 활성화active 되는 것은 j쿼리로 만들예정입니다. -->
                   <i class="far fa-circle nav-icon"></i>
                   <p>관리자 관리</p>
                 </a>
@@ -121,11 +126,10 @@
                   <p>게시물 관리</p>
                 </a>
               </li>
-             </ul>
+            </ul>
           </li>
           
-       </ul>
-       
+        </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>

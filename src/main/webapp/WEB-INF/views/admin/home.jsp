@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="./include/header.jsp" %>
-  <!-- 관리자단 헤더 시작 header.jsp -->
 
   <!-- 대시보드 본문 Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -32,7 +31,6 @@
     </section>
     <!-- /.content -->
   </div>
-  <%@ include file="./include/footer.jsp" %>
   <!-- /.content-wrapper -->
-
-    
+  
+<%@ include file="./include/footer.jsp" %>
