@@ -37,7 +37,7 @@ public class NaverLoginController {
 	private String REDIRECT_URI;
 	
 	//private final static String CLIENT_ID = "";
-	//private final static String CLIENT_SECRET = "";
+	//private final static String CLIENT_SECRET = "-";
 	//private final static String REDIRECT_URI = "";
 	private final static String SESSION_STATE = "oauth_state";
 	/* 프로필 조회 API URL - 사용자이름+사용자이메일 */
